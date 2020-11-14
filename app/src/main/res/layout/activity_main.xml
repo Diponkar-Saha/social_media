@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+   <ImageView
+       android:id="@+id/dip_logo"
+       android:layout_width="250dp"
+       android:layout_height="250dp"
+       android:src="@drawable/ic_dip_logo_svg_vector"
+       android:layout_centerHorizontal="true"
+       ></ImageView>
+    <Button
+        android:id="@+id/register_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_above="@+id/login_tv"
+        android:layout_marginBottom="20dp"
+        style="@style/TextAppearance.AppCompat.Widget.Button.Colored"
+        ></Button>
+    <Button
+        android:id="@+id/login_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:textColor="@color/colorPrimaryDark"
+        style="@style/TextAppearance.AppCompat.Widget.Button.Colored"
+        ></Button>
+
+</RelativeLayout>
