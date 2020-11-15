@@ -104,7 +104,7 @@ public class ChatActivity extends AppCompatActivity {
                         userStatusTv1.setText("typing..");
                     }
 
-                    //set data typingTo/////aaa
+                    //set data typingTo/////aaaaaaaaa
                     nameTv.setText(name);
                     if(onlineStatus.equals("online")){
                         userStatusTv1.setText(onlineStatus);
