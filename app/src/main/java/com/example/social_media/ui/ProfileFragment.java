@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,9 @@ import androidx.fragment.app.Fragment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -27,6 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.social_media.MainActivity;
 import com.example.social_media.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -76,6 +81,7 @@ public class ProfileFragment extends Fragment {
     String profileCoverPhoto;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,6 +104,9 @@ public class ProfileFragment extends Fragment {
         phoneTV=view.findViewById(R.id.phoneTV);
         fab=view.findViewById(R.id.fav);
         pd=new ProgressDialog(getActivity());
+
+
+
 
 
 
@@ -125,7 +134,7 @@ public class ProfileFragment extends Fragment {
                     try{
                         Picasso.get().load(cover).into(coverIv);
                     }catch (Exception e){
-                     Picasso.get().load(R.drawable.ic_baseline_edit_24).into(coverIv);
+                        Picasso.get().load(R.drawable.ic_baseline_edit_24).into(coverIv);
 
                     }
                 }
@@ -394,7 +403,34 @@ public class ProfileFragment extends Fragment {
                 pd.dismiss();
                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-            });
+        });
+
+    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+        menuInflater.inflate(R.menu.menu,menu);
+        super.onCreateOptionsMenu(menu,menuInflater);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logoutMenu:{
+                Logout();
+            }
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    private  void Logout(){
+        firebaseAuth.signOut();
+        getActivity().finish();
+        startActivity(new Intent(getActivity(), MainActivity.class));
+
 
     }
 

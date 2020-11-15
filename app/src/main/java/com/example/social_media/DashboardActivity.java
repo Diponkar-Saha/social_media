@@ -3,15 +3,13 @@ package com.example.social_media;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
+import com.example.social_media.ui.ChatListFragment;
 import com.example.social_media.ui.HomeFragment;
 import com.example.social_media.ui.ProfileFragment;
 import com.example.social_media.ui.UsersFragment;
@@ -20,23 +18,28 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    FirebaseAuth auth;
+    FirebaseAuth firebaseAuth;
+    ActionBar actionBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("Profile");
 
-        auth = FirebaseAuth.getInstance();
 
 
-        auth=FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+
+        firebaseAuth =FirebaseAuth.getInstance();
         BottomNavigationView navigationView=findViewById(R.id.nav_view);
         navigationView.setOnNavigationItemSelectedListener(selectedListener);
+
 
         //default
 
@@ -52,6 +55,7 @@ public class DashboardActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()){
                         case R.id.nav_home:
+                            actionBar.setTitle("Home");
 
                             HomeFragment homeFragment=new HomeFragment();
                             FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
@@ -59,6 +63,7 @@ public class DashboardActivity extends AppCompatActivity {
                             transaction.commit();
                             return true;
                         case R.id.nav_profile:
+                            actionBar.setTitle("Profile");
 
                             ProfileFragment profileFragment=new ProfileFragment ();
                             FragmentTransaction transaction1=getSupportFragmentManager().beginTransaction();
@@ -66,6 +71,7 @@ public class DashboardActivity extends AppCompatActivity {
                             transaction1.commit();
                             return true;
                         case R.id.nav_users:
+                            actionBar.setTitle("Users");
 
                             UsersFragment usersFragment=new UsersFragment ();
                             FragmentTransaction transaction2=getSupportFragmentManager().beginTransaction();
@@ -73,32 +79,20 @@ public class DashboardActivity extends AppCompatActivity {
                             transaction2.commit();
 
                             return true;
+
+                        case R.id.nav_chat:
+
+                            actionBar.setTitle("Chat");
+                            ChatListFragment chatListFragment=new ChatListFragment ();
+                            FragmentTransaction transaction3=getSupportFragmentManager().beginTransaction();
+                            transaction3.replace(R.id.content,chatListFragment,"");
+                            transaction3.commit();
+
+                            return true;
                     }
                     return false;
                 }
             };
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu,menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.logoutMenu:{
-                Logout();
-            }
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    private  void Logout(){
-        auth.signOut();
-        finish();
-        startActivity(new Intent(DashboardActivity.this,MainActivity.class));
-
-
-    }
 }

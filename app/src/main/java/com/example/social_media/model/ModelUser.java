@@ -1,4 +1,4 @@
-package com.example.social_media;
+package com.example.social_media.model;
 
 public class ModelUser {
     String name,email,search,phone,image,cover,uid;
