@@ -108,9 +108,9 @@ public class ChatActivity extends AppCompatActivity {
                             userStatusTv1.setText(onlineStatus);
                         }else{
 
-                            //SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault());
-                           // String dateTime = simpleDateFormat1.format(new Date(Long.parseLong(onlineStatus)));
-                           // userStatusTv1.setText("Last seen at :"+dateTime);
+                            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault());
+                           String dateTime = simpleDateFormat1.format(new Date(Long.parseLong(onlineStatus)));
+                           userStatusTv1.setText("Last seen at :"+dateTime);
                         }
 
                     }
@@ -278,7 +278,7 @@ public class ChatActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        checkUserStatus();
+
         checkOnlineStatus("online");
 
         super.onResume();
