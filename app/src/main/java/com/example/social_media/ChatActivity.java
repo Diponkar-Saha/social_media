@@ -97,23 +97,26 @@ public class ChatActivity extends AppCompatActivity {
                 for(DataSnapshot ds:snapshot.getChildren()){
                     String name=""+ ds.child("name").getValue();
                     hisImage=""+ ds.child("image").getValue();
-                    String onlineStatus=""+ ds.child("onlineStatus").getValue();
+
                     String typingStatus=""+ ds.child("typingTo").getValue();
 
                     if(typingStatus.equals(myUid)){
                         userStatusTv1.setText("typing..");
+                    }else{
+                        String onlineStatus=""+ ds.child("onlineStatus").getValue();
+                        if(onlineStatus.equals("online")){
+                            userStatusTv1.setText(onlineStatus);
+                        }else{
+
+                            //SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault());
+                           // String dateTime = simpleDateFormat1.format(new Date(Long.parseLong(onlineStatus)));
+                           // userStatusTv1.setText("Last seen at :"+dateTime);
+                        }
+
                     }
 
                     //set data typingTo/////aaaaaaaaa
                     nameTv.setText(name);
-                    if(onlineStatus.equals("online")){
-                        userStatusTv1.setText(onlineStatus);
-                    }else{
-
-                        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault());
-                       String dateTime = simpleDateFormat1.format(new Date(Long.parseLong(onlineStatus)));
-                        userStatusTv1.setText("Last seen at :"+dateTime);
-                    }
 
                     try{
                         Picasso.get().load(hisImage).placeholder(R.drawable.ic_baseline_face_24).into(profileView);
@@ -264,6 +267,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
         //get timestampp
         String timestamp=String.valueOf(System.currentTimeMillis());
         checkOnlineStatus(timestamp);
